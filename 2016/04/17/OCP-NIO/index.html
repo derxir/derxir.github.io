@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>OCP-NIO | Justin Yue</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/pure-min.css"><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">OCP-NIO</h1><a id="logo" href="/.">Justin Yue</a><p class="description">哈你来看我博客了诶</p></div><div id="nav-menu"><a href="/." class="current"><i class="icon-home"> 首页</i></a><a href="/archives/"><i class="icon-archive"> 归档</i></a><a href="/about/"><i class="icon-about"> 关于</i></a><a href="/atom.xml"><i class="icon-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post post-page"><h1 class="post-title">OCP-NIO</h1><div class="post-meta">2016-04-17 | </div><span data-disqus-identifier="2016/04/17/OCP-NIO/" class="disqus-comment-count"></span><div class="post-content"><p>Path</p>
+<p>Path objects are userd to represent the path of files or directories in a file system. They represent a hierarchal path, containing directory names and filenames separated by platform-sepcific delimiters. all methods dont remove any redundancies from the Path object except normalize()</p>
+<p>interface java.nio.file.Path</p>
+<p>path object might or might not be tied to real file or directory on a system, it can refer to a  nonexistent file or directory.</p>
+<p><strong>how to create a path object</strong></p>
+<ol>
+<li><p>java.nio.file.Paths.get(String path);<br> Paths is a factory class, used to created Path object.<br> back slash () in Java string must be escaped<br> it is a static method</p>
+</li>
+<li><p>java.nio.file.FileSystems.getDefault().getPath(“&lt;abs/rel path”);<br> Filesystems is an abstract class, need to call getDefault() to get the current class fileSystem object.</p>
+</li>
+<li><p>java.io.File</p>
+<pre><code>File file = new File(&quot;C://a.txt&quot;);
+Path path = file.toPath();
+</code></pre></li>
+</ol>
+<p>X. behind the scene, both Paths.get() and File.toPath call FileSystem.getDefault().getPath();</p>
+<p><strong>Path vs Paths</strong></p>
+<p>Path is an interface while Paths is a class.<br>Paths is actually a utility class with static methods to create Path objects.<br>Path interface is used to represent the path of a file or directory on a system. It extends Comparable, Iterable, and Watchable.</p>
+<p>Methods to access path components</p>
+<pre><code> Paths.get(&quot;C:\\Users\\obj8\\8-1.txt&quot;);
+getParent();
+subPath(0,2);
+getRoot();
+getName(0);
+getName(1);
+getFileName();
+getNameCount();
+
+Path methods that accepts positions throw an IllegalArgumentException at runtime for invalid position
+
+**compare paths**
+
+**convert relative to absolute path**
+##file.toAbsolutePath(), not getAbsolutePath()##
+</code></pre><p>normalize a path<br>path.normalize() // remove .. or ., again, it doesnt check the actual file system,purely object manipulation<br>Path is immutable</p>
+<p>Which methods that will not include .. or . in the path object?<br>    toSting()<br>    getName()<br>    subPath(1,2)<br>    getParent()</p>
+<p><strong>Resolving path using resolve() and resolveSibling()</strong></p>
+<p>resolve(string) resolve(path) are used to join paths. if the param is a absolute path, then the return is the absolute path.</p>
+<p>resolveSibling(string) resoveSibling(path) used to copy or rename path. if param is empty, return parent path.</p>
+<p>method relativize(): build a path from path1 to path2<br>file.relative(dir); file –&gt; dir<br>note: cant create path between relative path and absolute path. will throw IllegalArgumentException at runtime.</p>
+<p>java.nio.file.Files</p>
+<p>public static Path createFile(Path path…) throws IOException;<br>    atomically check&amp;create</p>
+<p>public static Path createDirectory(Path dir…) throws IOException;<br>    throws exception if parent directory doesnt exists</p>
+<p>public static Path createDirectories(Path dir …) throws IOException;<br>    create all the parent directories if they dont exist.</p>
+</div><div class="tags"></div><div class="post-nav"><a href="/2016/04/30/Thread/" class="pre"><i class="icon-previous">Thread</i></a><a href="/2016/04/15/blockchain/" class="next">blockchain<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
+var disqus_identifier = '2016/04/17/OCP-NIO/';
+var disqus_title = 'OCP-NIO';
+var disqus_url = 'http://yoursite.com/2016/04/17/OCP-NIO/';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//derxir## Your disqus_shortname, e.g. haomwei.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search" class="search-form-input"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/写给自己/">写给自己</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/music/" style="font-size: 15px;">music</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/阅读笔记/" style="font-size: 15px;">阅读笔记</a> <a href="/tags/diary/" style="font-size: 15px;">diary</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/30/Thread/">Thread</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/17/OCP-NIO/">OCP-NIO</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/15/blockchain/">blockchain</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/26/抑/">冬末的思绪</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/13/数据结构/">数据结构</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/13/遇见未知的自己/">遇见未知的自己</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/13/伦敦好玩的/">伦敦好玩的</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/22/量化固定收益部的系统架构/">量化固定收益部的系统架构</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/10/ABRSM理论5级/">ABRSM理论5级</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/09/年初/"> 写于年初的计划 </a></li></ul></div><div class="widget"><div class="widget-title">最近评论</div><script type="text/javascript" src="//derxir## Your disqus_shortname, e.g. haomwei.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title">友情链接</div><ul></ul><a href="null" title="null" target="_blank"></a></div></div></div></div><div id="footer">© <a href="/." rel="nofollow">Justin Yue.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div><a id="rocket" href="#top" class="show"></a><script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/totop.js" type="text/javascript"></script><script src="/js/fancybox.pack.js" type="text/javascript"></script>
+<script src="/js/jquery.fancybox.js" type="text/javascript"></script><link rel="stylesheet" href="/css/jquery.fancybox.css" type="text/css"></div></body></html>
