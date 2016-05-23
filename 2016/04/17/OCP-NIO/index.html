@@ -17,22 +17,12 @@ Path path = file.toPath();
 <p><strong>Path vs Paths</strong></p>
 <p>Path is an interface while Paths is a class.<br>Paths is actually a utility class with static methods to create Path objects.<br>Path interface is used to represent the path of a file or directory on a system. It extends Comparable, Iterable, and Watchable.</p>
 <p>Methods to access path components</p>
-<pre><code> Paths.get(&quot;C:\\Users\\obj8\\8-1.txt&quot;);
-getParent();
-subPath(0,2);
-getRoot();
-getName(0);
-getName(1);
-getFileName();
-getNameCount();
-
-Path methods that accepts positions throw an IllegalArgumentException at runtime for invalid position
-
-**compare paths**
-
-**convert relative to absolute path**
-##file.toAbsolutePath(), not getAbsolutePath()##
-</code></pre><p>normalize a path<br>path.normalize() // remove .. or ., again, it doesnt check the actual file system,purely object manipulation<br>Path is immutable</p>
+<p>Paths.get(“C:\Users\obj8\8-1.txt”);<br>getParent();<br>subPath(0,2);<br>getRoot();<br>getName(0);<br>getName(1);<br>getFileName();<br>getNameCount();</p>
+<p>Path methods that accepts positions throw an IllegalArgumentException at runtime for invalid position</p>
+<p><strong>compare paths</strong></p>
+<p><strong>convert relative to absolute path</strong></p>
+<p>##file.toAbsolutePath(), not getAbsolutePath()##</p>
+<p>normalize a path<br>path.normalize() // remove .. or ., again, it doesnt check the actual file system,purely object manipulation<br>Path is immutable</p>
 <p>Which methods that will not include .. or . in the path object?<br>    toSting()<br>    getName()<br>    subPath(1,2)<br>    getParent()</p>
 <p><strong>Resolving path using resolve() and resolveSibling()</strong></p>
 <p>resolve(string) resolve(path) are used to join paths. if the param is a absolute path, then the return is the absolute path.</p>
