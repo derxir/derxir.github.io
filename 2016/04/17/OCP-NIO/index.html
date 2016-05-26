@@ -28,10 +28,17 @@ Path path = file.toPath();
 <p>resolve(string) resolve(path) are used to join paths. if the param is a absolute path, then the return is the absolute path.</p>
 <p>resolveSibling(string) resoveSibling(path) used to copy or rename path. if param is empty, return parent path.</p>
 <p>method relativize(): build a path from path1 to path2<br>file.relative(dir); file –&gt; dir<br>note: cant create path between relative path and absolute path. will throw IllegalArgumentException at runtime.</p>
-<p>java.nio.file.Files</p>
+<p><strong>java.nio.file.Files</strong></p>
+<p>consists entirely of static methods for manipulatinf files and dirs</p>
 <p>public static Path createFile(Path path…) throws IOException;<br>    atomically check&amp;create</p>
-<p>public static Path createDirectory(Path dir…) throws IOException;<br>    throws exception if parent directory doesnt exists</p>
+<p>public static Path createDirectory(Path dir…) throws IOException;<br>    atomically check&amp;create throws exception if parent directory doesnt exists</p>
 <p>public static Path createDirectories(Path dir …) throws IOException;<br>    create all the parent directories if they dont exist.</p>
+<p>notice all throw IOException which is a checked exception</p>
+<p><strong>check for the existence of files and dirs</strong><br>exists(Path, LinkOption) notExists(Path, LinkOption)<br>    LinkOption.NOFOLLOW_LINK<br>    both return false if cant determin the existence of the file<br>    by default the methods follow a symbolic link.</p>
+<p><strong>Copy files</strong><br>static Files.copy(source,target, CopyOption…)<br>    InputStream -&gt; Path<br>    Path -&gt; OutputStream<br>    Path -&gt; Path<br>    optional third argument StandardCopyOption(enum):<br>        ATOMIC_MOVE, COPY_ATTRIBUTES, REPLACE_EXISTING<br>    can copy only files, not directories. if the source is a dir, then the target dir is created without copying any file in source dir.</p>
+<p>static Files.move(source, target,CopyOption)<br>    move or rename a file<br>    Path source = Paths.get(“note.txt”);<br>    Files.move(source, source.resolveSibling(“new-note.txt”));<br>    cant move a file or dir to a nonexisting dir</p>
+<p>static void Files.delete(Path)<br>static boolean Files.deleteIfExists(Path)</p>
+<p><strong>General Exceptions</strong><br>    IOException(checked)<br>    NoSuchFileException(Runtime) delte move copy a nonexistent file or dir</p>
 </div><div class="tags"></div><div class="post-nav"><a href="/2016/04/30/Thread/" class="pre"><i class="icon-previous">Thread</i></a><a href="/2016/04/15/blockchain/" class="next">blockchain<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
 var disqus_identifier = '2016/04/17/OCP-NIO/';
 var disqus_title = 'OCP-NIO';
