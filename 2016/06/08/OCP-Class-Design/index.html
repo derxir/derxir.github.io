@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="null"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>OCP-Class Design | Justin Yue</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/pure-min.css"><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">OCP-Class Design</h1><a id="logo" href="/.">Justin Yue</a><p class="description">哈你来看我博客了诶</p></div><div id="nav-menu"><a href="/." class="current"><i class="icon-home"> 首页</i></a><a href="/archives/"><i class="icon-archive"> 归档</i></a><a href="/about/"><i class="icon-about"> 关于</i></a><a href="/atom.xml"><i class="icon-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post post-page"><h1 class="post-title">OCP-Class Design</h1><div class="post-meta">2016-06-08 | </div><span data-disqus-identifier="2016/06/08/OCP-Class-Design/" class="disqus-comment-count"></span><div class="post-content"><p>ENUM<br>An enum switch case label must be the unqualified name of an enumeration constant. So it should be: case OFF instead of case Switch.OFF.<br>The enum definition contains an explicit constructor that takes a parameter. Therefore, the compiler will not provide a default no-args constructor for this enum. Hence, the declaration of MOCHA and LATTE will fail since they need a no-args constructor<br>You need to know the following facts about enums: 1. Enum constructor is always private. You cannot make it public or protected. If an enum type has no constructor declarations, then a private constructor that takes no parameters is automatically provided. 2. An enum is impliclty final, which means you cannot extend it. 3. You cannot extend an enum from another enum or class because an enum implicitly extends java.lang.Enum. But an enum can implement interfaces. 4. Since enum maintains exactly one instance of its constants, you cannot clone it. You cannot even override the clone method in an enum because java.lang.Enum makes it final. 5. Compiler provides an enum with two public static methods automatically -  values() and valueOf(String). The values method returns an array of its constants and valueOf method tries to match the String argument exactly (i.e. case sensitive) with an enum constant and returns that constant if successful otherwise it throws java.lang.IllegalArgumentException.  The following are a few more important facts about java.lang.Enum which you should know:  1. It implements java.lang.Comparable (thus, an enum can be added to sorted collections such as SortedSet, TreeSet, and TreeMap). 2. It has a method ordinal(), which returns the index (starting with 0) of that constant i.e. the position of that constant in its enum declaration. 3. It has a method name(), which returns the name of this enum constant, exactly as declared in its enum declaration.</p>
+<p>enum cannot be defined inside any method or constructor</p>
+<p>Inner classes<br>            A non static inner class may have static members if you make them final.<br>            Anonymous inner classes cannot have any ‘extends’ or ‘implements’ clause.<br>            class A is not static inner class of TestClass. So it cannot exist without an outer instance of TestClass. class B is static inner class and can be instantiated without an outer instance of TestClass.</p>
+<pre><code>Anonymous classes cannot define constructors explicitly in Java code.
+
+An inner class can extend its outer class.
+
+Member variables of the outer instance are always accessible to inner instances, regardless of their accessibility modifiers.
+
+an anonymous class can be declared in a static method.
+
+Inner class can extend the outer class.
+Anonymous inner class can be created for classes. (Not just for interfaces). They implicitly extend the class.(Here, TestClass)
+Anonymous inner class can have initialization parameter. (If the class they extend has a corresponding constructor).
+</code></pre><p>Class Design<br>            An interface cannot “implement” anything.</p>
+<pre><code>overloading: signature包括name和param，不包括return type
+The overriding method can declare any subset of the exceptions (of SubClasses of Exceptions) declared in the overridden class. No exception is a valid subset.
+
+overriding:virtural method invocation取决于实际的object而不是reference，发生在runtime，不是compilation time
+rules
+      overriding method可以用任何nonaccess modifier
+      nonabstract可以被overide 成abstract
+      final 不可以被overridden
+      static不可以被override成nonstatic
+      exeption（checked） 可以不throw， 也可以throw一个subset
+      任何runtime exception都可以throw， 因为compile time 不检查runtime exception
+
+      access modifier should be same or less restrictive
+
+contructor 不能被overidden， 因为不被继承。
+
+equals()和hashcode()要重写的话要一起被重写。
+if equals() return true, then hashcode() must be the same
+if equals() return false, hashcode()随便
+
+clone() is protected
+
+
+interface cant extend class
+variables in interface must be initialized
+</code></pre></div><div class="tags"></div><div class="post-nav"><a href="/2016/06/08/Functional-Programming/" class="pre"><i class="icon-previous">Functional Programming</i></a><a href="/2016/06/08/OCP-Exception/" class="next">OCP-Exception<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
+var disqus_identifier = '2016/06/08/OCP-Class-Design/';
+var disqus_title = 'OCP-Class Design';
+var disqus_url = 'http://yoursite.com/2016/06/08/OCP-Class-Design/';
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//derxir## Your disqus_shortname, e.g. haomwei.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search" class="search-form-input"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/写给自己/">写给自己</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/music/" style="font-size: 15px;">music</a> <a href="/tags/work/" style="font-size: 15px;">work</a> <a href="/tags/阅读笔记/" style="font-size: 15px;">阅读笔记</a> <a href="/tags/diary/" style="font-size: 15px;">diary</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Coding/" style="font-size: 15px;">Coding</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/Functional-Programming/">Functional Programming</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-Class-Design/">OCP-Class Design</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-Exception/">OCP-Exception</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-Concurrency/">OCP-Concurrency</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-Collection/">OCP-Collection</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-Locale/">OCP-Locale</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-JDBC/">OCP-JDBC</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/OCP-String-Processing/">OCP-String Processing</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/30/Thread/">Thread</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/17/OCP-NIO/">OCP-NIO</a></li></ul></div><div class="widget"><div class="widget-title">最近评论</div><script type="text/javascript" src="//derxir## Your disqus_shortname, e.g. haomwei.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title">友情链接</div><ul></ul><a href="null" title="null" target="_blank"></a></div></div></div></div><div id="footer">© <a href="/." rel="nofollow">Justin Yue.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div><a id="rocket" href="#top" class="show"></a><script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/totop.js" type="text/javascript"></script><script src="/js/fancybox.pack.js" type="text/javascript"></script>
+<script src="/js/jquery.fancybox.js" type="text/javascript"></script><link rel="stylesheet" href="/css/jquery.fancybox.css" type="text/css"></div></body></html>
