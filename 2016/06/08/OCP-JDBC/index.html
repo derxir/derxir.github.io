@@ -8,6 +8,9 @@
 <p>All RowSet objects are by default scrollable and updatable. If the driver and database being used do not support scrolling and/or updating of result sets, an application can populate a JdbcRowSet object with the data of a ResultSet object and then operate on the JdbcRowSet object as if it were the ResultSet object.</p>
 <p>A CallableStatement is easier to build and call from JDBC code than a PreparedStatement.</p>
 <p>All RowSets are JavaBean compliant. While you may extend JdbcRowSet, you should not make it Serializable because a JdbcRowSet is a connected RowSet and so it maintains a connection to the database which cannot be serialized.</p>
+<p>int executeUpdate() –&gt; DDL<br>executeQuery() –&gt; DML, if execute DDL will throw sqlexception</p>
+<p>first close statement, then close connection, or use try-with-resource which implements autocloseable </p>
+<p>return value of executeUpdate(Insert, update, DELETE) is the number of rows deleted<br>column index in resultSet is 1-based</p>
 </div><div class="tags"><a href="/tags/Java/">Java</a></div><div class="post-nav"><a href="/2016/06/08/OCP-Locale/" class="pre"><i class="icon-previous">OCP-Locale</i></a><a href="/2016/06/08/OCP-String-Processing/" class="next">OCP-String Processing<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
 var disqus_identifier = '2016/06/08/OCP-JDBC/';
 var disqus_title = 'OCP-JDBC';
