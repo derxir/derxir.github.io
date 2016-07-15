@@ -21,11 +21,17 @@ an anonymous class can be declared in a static method.
 Inner class can extend the outer class.
 Anonymous inner class can be created for classes. (Not just for interfaces). They implicitly extend the class.(Here, TestClass)
 Anonymous inner class can have initialization parameter. (If the class they extend has a corresponding constructor).
-</code></pre><p>Class Design<br>            An interface cannot “implement” anything.</p>
-<pre><code>overloading: signature包括name和param，不包括return type
+</code></pre><p>Class Design</p>
+<pre><code>An interface cannot &quot;implement&quot; anything.
+
+overloading: signature包括name和param，不包括return type
 The overriding method can declare any subset of the exceptions (of SubClasses of Exceptions) declared in the overridden class. No exception is a valid subset.
 
-overriding:virtural method invocation取决于实际的object而不是reference，发生在runtime，不是compilation time
+overriding:virtural method 
+
+In case of primitives, the return type of the overriding method must be the same as that of the overridden method.
+
+invocation取决于实际的object而不是reference，发生在runtime，不是compilation time
 rules
       overriding method可以用任何nonaccess modifier
       nonabstract可以被overide 成abstract
@@ -43,7 +49,6 @@ if equals() return true, then hashcode() must be the same
 if equals() return false, hashcode()随便
 
 clone() is protected
-
 
 interface cant extend class
 variables in interface must be initialized

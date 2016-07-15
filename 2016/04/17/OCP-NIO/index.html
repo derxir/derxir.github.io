@@ -26,7 +26,7 @@ Path path = file.toPath();
 <p>Which methods that will not include .. or . in the path object?<br>    toSting()<br>    getName()<br>    subPath(1,2)<br>    getParent()</p>
 <p><strong>Resolving path using resolve() and resolveSibling()</strong></p>
 <p>resolve(string) resolve(path) are used to join paths. if the param is a absolute path, then the return is the absolute path.</p>
-<p>resolveSibling(string) resoveSibling(path) used to copy or rename path. if param is empty, return parent path.</p>
+<p>resolveSibling(string) resoveSibling(path) used to copy or rename path. if param is empty, return parent path.    </p>
 <p>method relativize(): build a path from path1 to path2<br>file.relative(dir); file –&gt; dir<br>note: cant create path between relative path and absolute path. will throw IllegalArgumentException at runtime.</p>
 <p><strong>java.nio.file.Files</strong></p>
 <p>consists entirely of static methods for manipulatinf files and dirs</p>
@@ -50,7 +50,15 @@ Path path = file.toPath();
 <p>D in DSYNC is for data. When you open a file with this attribute, it means that every update to the file’s content will be written synchronously to the underlying storage device. The meta data may still remain unsynchronized. In other words, any change in the data of the file will be written to the storage device synchronously, but any change in the meta data may be batched and written to the storage device later. Thus, it makes file operations a slower as compared to when you open the file without any option.</p>
 <p>Remember the following points about Path.subpath(int beginIndex, int endIndex) 1. Indexing starts from 0. 2. Root (i.e. c:) is not considered as the beginning. 3. name at beginIndex is included but name at endIndex is not. 4. paths do not start or end with .  Thus, in case of “c:\finance\data\reports\daily\pnl.txt”, name at 0 is finance and name at 2 is reports. However, since the name at endIndex is excluded, subpath(0, 2) will correspond to finance\data.   The following is the API description for this method:  public Path subpath(int beginIndex, int endIndex) Returns a relative Path that is a subsequence of the name elements of this path. The beginIndex and endIndex parameters specify the subsequence of name elements. The name that is closest to the root in the directory hierarchy has index 0. The name that is farthest from the root has index count-1. The returned Path object has the name elements that begin at beginIndex and extend to the element at index endIndex-1.  Parameters: beginIndex - the index of the first element, inclusive endIndex - the index of the last element, exclusive Returns: a new Path object that is a subsequence of the name elements in this Path Throws: IllegalArgumentException - if beginIndex is negative, or greater than or equal to the number of elements. If endIndex is less than or equal to beginIndex, or larger than the number of elements.</p>
 <p>writeObject takes Object OutputStream, readObject takes ObjectInputStream<br>to serialize the objet using the dfault behavior, must call objectOutputStream.defaultWriteObjet())<br>To deserialize the object using the default behavior, you must call objectInputStream.defaultReadObject();. This will ensure that instance fields of Portfolio object are deserialized.</p>
-<p>standardOpenOption.CREATE vs CREATE_NEW</p>
+<p>standardOpenOption.CREATE vs CREATE_NEW<br>    CREATE_NEW failed if the file exists, CREATE will overrite the file</p>
+<p>Path.relativize() doesnt take a string as a param.</p>
+<p>Path.getParent() returns null if it doesnt have a parent.</p>
+<p>Files.createDirectories() doesnt throw runtime exception if the file already exists whereas createDirectory() and createFile() throw. It throws exception when the dir is a file but not a dir.</p>
+<p>notExists() is not a complement of exists()</p>
+<p>copy() returns a Path or a Long but not a Boolean.<br>copy() cannot be used in try-with-resources<br>copy() doesnt copy directories;<br>by default if fails if the file exists. the file followed by the sim-link is copied otherwise use copyOption.NOFOLLOW_LINKS</p>
+<p>Attributes:</p>
+<p>Dos: isArchive(), isHidden(), isReadOnly(), isSystem()<br>Posix: permissions() group() owner()<br>attributes interface dont provide setter, Views do.<br>acl is windows only<br>fileOnwerAttributeView for all FS.</p>
+<p>WatchService<br>    diff between WatchService.take() and poll()<br>        take() waits , poll() return null( no waiting )</p>
 </div><div class="tags"><a href="/tags/Java/">Java</a></div><div class="post-nav"><a href="/2016/04/30/Thread/" class="pre"><i class="icon-previous">Thread</i></a><a href="/2016/04/15/blockchain/" class="next">blockchain<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
 var disqus_identifier = '2016/04/17/OCP-NIO/';
 var disqus_title = 'OCP-NIO';
