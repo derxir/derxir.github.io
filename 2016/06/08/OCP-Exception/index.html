@@ -9,7 +9,27 @@
 <li><p>RuntimeException, which extends Exception, should be used for situations that are unexpected for a piece of code. For example, if you get an array as a parameter and your application logic may expect that all elements are non-null and if you do get a null, you may throw a NullPointerException. There is usually no need for creating your own RuntimeException because Java API provides several RuntimeExceptions suitable for various situations.</p>
 </li>
 </ol>
-<p>Catch and finally blocks are executed after the resource opened in try-with-resources is closed</p>
+<p>You need to know the following points regarding try-with-resources statement for the exam: </p>
+<ol>
+<li><p>The resource class must implement java.lang.AutoCloseable interface. Many standard JDK classes such as BufferedReader, BufferedWriter implement java.io.Closeable interface, which extends java.lang.AutoCloseable. </p>
+<ol>
+<li>Resources are closed at the end of the try block and before any catch or finally block.  </li>
+</ol>
+</li>
+<li><p>Resources are not even accessible in the catch or finally block. For example:  </p>
+<pre><code>try(Device d = new Device()){ 
+     d.read();         
+</code></pre><p>}finally{   </p>
+<pre><code> d.close(); //This will not compile because d is not accessible here.
+} 
+</code></pre><ol>
+<li>Resources are closed in the reverse order of their creation.  </li>
+<li>Resources are closed even if the code in the try block throws an exception.  </li>
+<li>java.lang.AutoCloseable’s close() throws Exception but java.io.Closeable’s close() throws IOException.  </li>
+<li>If code in try block throws exception and an exception also thrown while closing is resource, the exception thrown while closing the resource is suppressed. The caller gets the exception thrown in the try block.</li>
+</ol>
+</li>
+</ol>
 </div><div class="tags"><a href="/tags/Java/">Java</a></div><div class="post-nav"><a href="/2016/06/08/OCP-Class-Design/" class="pre"><i class="icon-previous">OCP-Class Design</i></a><a href="/2016/06/08/OCP-Concurrency/" class="next">OCP-Concurrency<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
 var disqus_identifier = '2016/06/08/OCP-Exception/';
 var disqus_title = 'OCP-Exception';

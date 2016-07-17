@@ -58,7 +58,23 @@ Path path = file.toPath();
 <p>copy() returns a Path or a Long but not a Boolean.<br>copy() cannot be used in try-with-resources<br>copy() doesnt copy directories;<br>by default if fails if the file exists. the file followed by the sim-link is copied otherwise use copyOption.NOFOLLOW_LINKS</p>
 <p>Attributes:</p>
 <p>Dos: isArchive(), isHidden(), isReadOnly(), isSystem()<br>Posix: permissions() group() owner()<br>attributes interface dont provide setter, Views do.<br>acl is windows only<br>fileOnwerAttributeView for all FS.</p>
-<p>WatchService<br>    diff between WatchService.take() and poll()<br>        take() waits , poll() return null( no waiting )</p>
+<p>WatchService<br>    diff between WatchService.take() and poll()<br>    WatchService has two types of methods for retrieving the WatchKeys - poll and take. The two poll methods return null if no key is present and it does not wait for ever. The take method doesn’t return null but keeps waiting until a key is available.</p>
+<pre><code>WatchKey take() throws InterruptedException Retrieves and removes next watch key, waiting if none are yet present. Notice that this method does not take any parameter. So it waits until a key becomes available (or until the WatchService is closed, in which case the method throws ClosedWatchServiceException). If you want to wait for a specified time, you should use the poll method. 
+
+WatchKey poll(long timeout,TimeUnit unit) throws InterruptedException : Retrieves and removes the next watch key, waiting if necessary up to the specified wait time if none are yet present. 
+
+ WatchKey poll(): Retrieves and removes the next watch key, or null if none are present.
+</code></pre><p>Note that the write(int b) method of various binary stream based classes such as this one take an int parameter but write only the low 8 bits (i.e. 1 byte) of that integer. DataOutputStream provides methods such as writeInt, writeChar, and writeDouble, for writing complete value of the primitives to a file. So if you want to write an integer to the file, you should use writeInt(1) in which case a file of size 4 bytes will be created. You can read back the stored primitives using methods such as DataInputSream.readInt()</p>
+<p>public static boolean isSameFile(Path path, Path path2)                           throws IOException  Tests if two paths locate the same file. If both Path objects are equal then this method returns true without checking if the file exists. If the two Path objects are associated with different providers then this method returns false. Otherwise, this method checks if both Path objects locate the same file, and depending on the implementation, may require to open or access both files.</p>
+<p>java.nio.file.PathMatcher is an interface that declares only one method:<br> boolean matches(Path path)<br>  Tells if given path matches this matcher’s pattern. </p>
+<p>static fields are never serialized.<br>During deserialization, the constructor of the class (or any static or instance blocks) is not executed. However, if the super class does not implement Serializable, its constructor is called.</p>
+<ol>
+<li>The isDirectory() method returns true if the file object represents a directory.<br>2 and 3. File class has two methods for returning the contents of a directory (although it has more but for the exam, you need to know only these two):<br>String[] list()<br>Returns an array of strings naming the files and directories in the directory denoted by this abstract pathname.<br>File[] listFiles()<br>Returns an array of abstract pathnames denoting the files in the directory denoted by this abstract pathname.  The for loop is expecting ‘files’ to be an array or a Collection of File objects. Thus, 2nd and 3rd blanks should be File[] and listFiles respectively.  </li>
+<li>isFile() method returns true if the file object represents a normal file.<ol>
+<li>renameTo(File newfile) renames the file to newfile. </li>
+</ol>
+</li>
+</ol>
 </div><div class="tags"><a href="/tags/Java/">Java</a></div><div class="post-nav"><a href="/2016/04/30/Thread/" class="pre"><i class="icon-previous">Thread</i></a><a href="/2016/04/15/blockchain/" class="next">blockchain<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
 var disqus_identifier = '2016/04/17/OCP-NIO/';
 var disqus_title = 'OCP-NIO';

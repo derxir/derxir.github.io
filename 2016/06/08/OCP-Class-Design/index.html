@@ -22,7 +22,8 @@ Inner class can extend the outer class.
 Anonymous inner class can be created for classes. (Not just for interfaces). They implicitly extend the class.(Here, TestClass)
 Anonymous inner class can have initialization parameter. (If the class they extend has a corresponding constructor).
 </code></pre><p>Class Design</p>
-<pre><code>An interface cannot &quot;implement&quot; anything.
+<pre><code>An abstract class may have final methods.
+An interface cannot &quot;implement&quot; anything.
 
 overloading: signature包括name和param，不包括return type
 The overriding method can declare any subset of the exceptions (of SubClasses of Exceptions) declared in the overridden class. No exception is a valid subset.
@@ -48,10 +49,15 @@ equals()和hashcode()要重写的话要一起被重写。
 if equals() return true, then hashcode() must be the same
 if equals() return false, hashcode()随便
 
-clone() is protected
 
-interface cant extend class
+interface cannot extend class
 variables in interface must be initialized
+viariables are public static final
+methods are public abstract
+implemented class must use public for variables and methods
+
+
+import static: Syntax for importing static fields is:  import static &lt;package&gt;.&lt;classname&gt;.*; or import static &lt;package&gt;.&lt;classname&gt;.&lt;fieldname&gt;
 </code></pre><p>Remember : variables are SHADOWED and methods are OVERRIDDEN.<br>Which variable will be used depends on the class that the variable is declared of.<br>Which method will be used depends on the actual class of the object that is referenced by the variable.</p>
 </div><div class="tags"></div><div class="post-nav"><a href="/2016/06/08/Functional-Programming/" class="pre"><i class="icon-previous">Functional Programming</i></a><a href="/2016/06/08/OCP-Exception/" class="next">OCP-Exception<i class="icon-next"></i></a></div><div id="disqus_thread"><script>var disqus_shortname = 'derxir## Your disqus_shortname, e.g. haomwei';
 var disqus_identifier = '2016/06/08/OCP-Class-Design/';
